@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Symptom Assessment Interface</title>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="application-name" content="Symptom Assessment Interface">
+		<meta name="google" content="notranslate">
+		<!-- CSS LINKS-->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css">
+	</head>
+	<body>
+		<div id="app" class="container">
+			<div class="text-right">
+				<p class="h3 text-info">Symptom Assessment Interface</p>
+			</div>
+			<div class="row well fix_btn">
+				<div class="col-xs-4 menu">
+					<ul class="list-group">
+						<li class="list-group-item">
+							<button class="btn btn-lg bg-info">
+								<span class="menu_span glyphicon glyphicon-share-alt" ></span>
+							</button>
+							<span class="bolder h6"> Patient Information</span>
+						</li>
+						<li class="list-group-item">
+							<button class="btn bg-info btn-lg" enable>
+								<span class="menu_span glyphicon glyphicon-plus" v-bind:class="{ 'glyphicon-share-alt': slide1, 'glyphicon-plus':false }"></span>
+							</button>
+							<span class="h6" v-bind:class="{ 'bolder': slide1 }"> Symptom Assessment</span>
+						</li>
+						<li class="list-group-item">
+							<button class="btn bg-info btn-lg" enable>
+								<span class="menu_span glyphicon glyphicon-plus" v-bind:class="{ 'glyphicon-share-alt': slide2, 'glyphicon-plus':false }"></span>
+							</button>
+							<span class="h6" v-bind:class="{ 'bolder': slide2 }">  Pain Assessment</span>
+						</li>
+						<li class="list-group-item">
+							<button class="btn bg-info btn-lg" enable>
+								<span class="menu_span glyphicon glyphicon-plus" v-bind:class="{ 'glyphicon-eye-open': slide3, 'glyphicon-plus':false }"></span>
+							</button>
+							<span class="h6" v-bind:class="{ 'bolder': slide3 }"> Review Information</span>
+						</li>
+					</ul>
+
+					<div class="verticalLine1" ></div>
+					<div class="verticalLine2" ></div>
+					<div class="verticalLine3" ></div>		
+				</div>
+				<div class="col-xs-8 form-content">
+
+					 <!-- slide 1 goes here -->	
+
+		            <div class="row container1" v-bind:class="{ cunset: c1 }">
+		            	<div class="h3 text-right">
+		            		<span class="glyphicon glyphicon-tasks"></span> 
+		            		Patient Information
+		            	</div>
+		            	<div class="container-fluid">
+		            		<form>
+							    <div class="form-group has-feedback">
+							        <label for="pName">Patient's Name:</label>
+							         <div class="input-group">
+									  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									  <input  v-validate="'required|alpha_spaces|min:10|max:13'" :class="{'input': true, 'is-danger': errors.has('alpha_spaces') }" name="Patient full name" class="form-control"  type="text" placeholder="Enter patient's full name" v-model="p_Name" id="PatientFullName">
+									 </div>
+							      
+							      	<small v-show="errors.has('Patient full name')" class="text-danger">{{ errors.first('Patient full name') }}</small>
+							    </div>
+							    <div class="form-group">
+							        <label for="pDob">Patient's Date of Birth:</label>
+							        <div class='input-group date'>
+							            <input id='datepicker' type='text' class="datepicker form-control" placeholder="Pick a date!"/>
+							            <span class="input-group-addon">
+							                <span class="glyphicon glyphicon-calendar"></span>
+							            </span>
+							        </div>
+							    </div>
+							    <div class="form-group">
+							        <label for="dName">Doctor full name:</label>
+							         <div class="input-group">
+									  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									  <input v-validate="'required|alpha_spaces|min:10|max:20'" :class="{'input': true, 'is-danger': errors.has('alpha_spaces') }" name="Doctor full name" class="form-control"  type="text" placeholder="Enter doctor's full name" v-model="d_Name" id="DoctorFullName">
+									  
+									 </div>
+									<small v-if="errors.has('Doctor full name')" class="text-danger">{{ errors.first('Doctor full name') }}</small>
+							    </div>
+							    <label>Interface user:</label>
+							    <div class="form-group">
+							        <label class="radio-inline">
+							            <input type="radio" name="Patient" value="Patient" v-model="interface_user" checked> Patient
+							        </label>
+							        <label class="radio-inline">
+							            <input type="radio" name="Caregiver" value="Caregiver" v-model="interface_user"> Caregiver
+							        </label>
+							    </div>							
+							</form>
+			            	<div class="row">
+				            	<div class="col-xs-4 col-xs-offset-8 col-sm-4 col-sm-offset-8 col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8">
+				                    <a href="#" class="btn btn-block btn-success" id="btn-next1" v-on:click="moving(false,true,false,false)" >Next <span class="glyphicon glyphicon-menu-right"></span></a>
+				                </div>
+				            </div>
+		            	</div>
+		            </div>
+
+					<!-- slide 2 goes here -->
+
+		      		<div class="row container2" v-bind:class="{ cunset: c2 }" >
+			      			<div class="h3 text-right">
+			      				<span class="glyphicon glyphicon-tasks"></span> 
+			      				Symptom Assessment
+			      			</div>
+		           			<div class="form-horizontal">
+								<div class="form-group" v-bind:class="{ 'has-error': wellbeing_num, 'has-feedback':wellbeing_num }">
+								    <label class="col-sm-12 control-label text-muted">
+								        Wellbeing (0 = 'Best Feeling of Wellbeing', 10 = 'Worst Feeling of Wellbeing')
+								    </label>
+								    <div class="col-sm-12">
+								        <select name="wellbeing" id="wellbeing"  class="form-control" v-model="wb_opt" v-on:click="wellbeing_num_fu">
+								          <option disabled value="">Please select one</option>
+								            <option>0</option>
+								            <option>1</option>
+								            <option>2</option>
+								            <option>3</option>
+								            <option>4</option>
+								            <option>5</option>
+								            <option>6</option>
+								            <option>7</option>
+								            <option>8</option>
+								            <option>9</option>
+								            <option>10</option>
+								        </select>
+								    </div>
+								</div>
+								<div class="form-group" v-bind:class="{ 'has-error': tired_num, 'has-feedback':tired_num }">
+								    <label class="col-sm-12 control-label text-muted">
+								        Tired (0 ='Not Tired', 10='Worst Possible Tiredness')
+								    </label>
+								    <div class="col-sm-12">
+								        <select name="tired" id="tired" class="form-control" v-model="tr_opt" v-on:click="tired_num_fu">
+								          <option disabled value="">Please select one</option>
+								            <option>0</option>
+								            <option>1</option>
+								            <option>2</option>
+								            <option>3</option>
+								            <option>4</option>
+								            <option>5</option>
+								            <option>6</option>
+								            <option>7</option>
+								            <option>8</option>
+								            <option>9</option>
+								            <option>10</option>
+								        </select>
+								    </div>
+								</div>
+								<div class="form-group" v-bind:class="{ 'has-error': pain_num, 'has-feedback':pain_num }">
+								    <label class="col-sm-12 control-label text-muted">
+								        Pain (0='No Pain', 10='Worst Possible Pain')
+								    </label>
+								    <div class="col-sm-12">
+								        <select name="pain" id="pain" class="form-control " v-model="pa_opt" v-on:click="pain_num_fu">
+								          <option disabled value="">Please select one</option>
+								            <option>0</option>
+								            <option>1</option>
+								            <option>2</option>
+								            <option>3</option>
+								            <option>4</option>
+								            <option>5</option>
+								            <option>6</option>
+								            <option>7</option>
+								            <option>8</option>
+								            <option>9</option>
+								            <option>10</option>
+								        </select>
+								    </div>
+								</div>
+							</div>
+			            	<div class="row">
+			            	    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+	           						<a href="#" class="btn btn-block btn-primary" id="buttonPrev3" v-on:click="moving(true,false,false,false)" ><span class="glyphicon glyphicon-menu-left"></span>Previous</a>
+	       						</div>
+				            	<div class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+				                    <a href="#" class="btn btn-block btn-success" id="btn-next1" v-on:click="moving(false,false,true,false)" >Next <span class="glyphicon glyphicon-menu-right"></span></a>
+				                </div>
+				            </div>    
+		            </div>
+		       
+		            <!-- slide 3 goes here -->
+
+		            <div class="row container3" v-bind:class="{ cunset: c3 }">
+		            	<div class="h3 text-right">
+		            		<span class="glyphicon glyphicon-tasks"></span> 
+		            		Pain Assessment
+		            	</div>
+		            	<div class="container-fluid">
+		            	    <div class="row">
+			                    <div class="col-xs-6">
+			                        <label class="text-muted">Highlighted pain area:</label>
+			                        <img v-bind:src="'img/'+checked+'.jpg'" class="img img-responsive" width="69%" align="center" id="img_logo"/>
+			                    </div>
+			                    <div class="col-xs-6">
+			                        <div class="form-group">
+			                        	<label for="sel1" class="text-muted">Select pain area:</label>
+			                        	<div class="row">
+			                        		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+		                        				<div class="radio">
+												  <label><input type="radio" value="Right-Leg" checked v-model="checked">Right Leg</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" value="Left-Leg" v-model="checked">Left Leg</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" value="Shoulders" v-model="checked">Shoulders</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" value="Stomach" v-model="checked">Stomach</label>
+												</div>
+			                        		</div>	
+			                        		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+		                        				<div class="radio">
+												  <label><input type="radio" value="Right-Arm" v-model="checked">Right Arm</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" value="Left-Arm" v-model="checked">Left Arm</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" value="Chest" v-model="checked">Chest</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" value="Back" v-model="checked">Back</label>
+												</div>
+			                        		</div>	
+			                        	</div>
+			                        </div>
+			                        <div class="form-group">
+			                            <label for="sel1" class="text-muted">Select the time of the day the pain hurts:</label>
+			                            <select class="form-control" v-model="day_opt">
+			                                <option>Morning</option>
+			                                <option>Afternoon</option>
+			                                <option>Night</option>
+			                                <option>All day</option>
+			                            </select>
+			                        </div>
+			                        <div class="form-group">
+			                            <label for="sel2" class="text-muted">Does movement influence pain?</label>
+			                           
+			                            <label class="radio-inline">
+			                            	<input type="radio" name="inlineRadioOptions" value="Yes" checked v-model="movment"> Yes
+			                            </label>
+			                            <label class="radio-inline">
+			                            	<input type="radio" name="inlineRadioOptions" value="No" v-model="movment"> No
+			                            </label>
+			                        </div>
+			                    </div>
+			                </div>
+							<br /><br />
+		            		<div class="row">
+				            	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+           							<a href="#" class="btn btn-block btn-primary" id="buttonPrev3" v-on:click="moving(false,true,false,false)" ><span class="glyphicon glyphicon-menu-left"></span> Previous</a>
+       							</div>
+			            		<div class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+			                   		<a href="#" class="btn btn-block btn-success" id="btn-next1" v-on:click="moving(false,false,false,true)" >Next <span class="glyphicon glyphicon-menu-right"></span></a>
+			               		</div>
+			                </div>
+		            	</div>
+		            </div>
+		          
+		            <!-- slide 4 goes here -->
+		            
+		            <div class="row container4" v-bind:class="{ cunset: c4 }">
+	            		<div class="h3 text-right">
+	            			<span class="glyphicon glyphicon-tasks"></span> 
+	            			Review Information
+	            		</div>
+		            	<div class="row">
+		            		<div class="well col-xs-11 last-slide4">		
+			            		<p>FOR <b class="text-uppercase"> DR. {{d_Name}}</b>,<br /><br />Patient: <b class="text-uppercase">{{p_Name}}</b> with birth (<span id="dataB"></span>) is indicating that: 
+			            		<ul>
+			            			<li>the wellbeing level is <b>{{wb_opt}}</b>,</li>
+			            			<li>the tiredness level is <b>{{tr_opt}}</b>,</li>
+			            			<li>the pain level is <b>{{pa_opt}}</b>.</li>
+			            		</ul>
+			            		The area where the pain is felt is in the <b>{{checked}}</b> and it occurs during the <b>{{day_opt}}</b>.<br /> When it comes to movement influencing pain, the answer is <b>{{movment}}</b>. This report has been written by the <b class="text-uppercase">{{interface_user}}</b> .
+		            		</div>
+			            	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+       							<a href="#" class="btn btn-block btn-primary" id="btn_prev4" v-on:click="moving(false,false,true,false)" ><span class="glyphicon glyphicon-menu-left"></span> Previous</a>
+   							</div>
+		            		<div class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+		                   		<a href="#" class="btn btn-block btn-success" id="submit" value="1" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-send"></span> Submit</a>
+		               		</div>
+	               		</div>
+		            </div>
+
+		            <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog modal-sm">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal" v-on:click="submit">&times;</button>
+				          <h4 class="modal-title" >DEAR <span class="text-uppercase">{{interface_user}}</span></h4>
+				        </div>
+				        <div class="modal-body">
+				          <p>Your message was send to <br /><strong class="text-uppercase">DR.{{d_Name}}</strong></p>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal" v-on:click="submit(true,false,false,false)">Close</button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>		        
+				</div> 
+			</div>
+		</div>
+		<!-- JS LINKS -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
+	    <script type="text/javascript" src="js/vue.js"></script>
+	    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="js/vee-validate.js"></script>
+	    <script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>

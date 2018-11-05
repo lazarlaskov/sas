@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.container{
+ width: 800px;
+ height: 600px;
+ margin-top: 50px;
+
+   /*  border: solid 1px;  */
+}
+
+.colorize{
+  border: solid 1px white;
+}
+.btn, .well, .form-control, .input-group-addon{
+
+  border-radius: 0px ;
+}
+.well
+{
+  margin-top: 0px; padding-top: 10px;
+}
+.list-group-item{
+  border: none;
+  background: none;
+}
+
+.verticalLine1, .verticalLine2, .verticalLine3{
+  border-left: solid 1px #ddd; height: 15px; position: absolute;
+  left:54px;
+}
+
+.verticalLine1{
+   top:58px;
+}
+
+.verticalLine2{
+  top:124px;
+}
+
+.verticalLine3{
+ top:188px;
+}
+.form-content{
+  border-left: solid 1px #ddd;
+}
+.container1, .container2, .container3, .container4,{
+ margin-top:10px;
+
+}
+.menu button{
+ border-radius: 90px;
+}
+.menu{
+  margin-top: 60px;
+}
+
+.container1, .container2, .container3, .container4{
+  display: none;
+} 
+
+.cunset{
+  display: unset;
+}
+
+.cnone{
+  display: none;
+}
+div.ui-datepicker{
+  font-size:11px;
+}
+.menu_span {
+  font-size: 14px; padding-left:2px
+}
+.last-slide4{
+  margin-left: 20px;
+}
+.bg-menu-btn{
+    color: #fff;
+    background-color: #204d74;
+}
+.bolder{
+  font-weight: bolder !important;
+}
